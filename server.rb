@@ -16,6 +16,10 @@ def r_health
   return { :name => "/r/Health", :title => title, :link => link }
 end
 
+def wikipedia
+	[0, 1].sample == 0 ? wikipedia_disorders : wikipedia_diseases
+end
+
 def wikipedia_disorders
 	data = scrape_data("https://en.wikipedia.org/wiki/List_of_disorders")
 	titles = data.css('#bodyContent .mw-parser-output > ul a:not(.new)')
@@ -52,12 +56,42 @@ def ted_health
 	return { :name => "TED Talks", :title => title, :link => link }
 end
 
+def nytimes
+	data = scrape_data("https://www.nytimes.com/section/health")
+	titles = data.css('.stream a.story-link')
+	choice = titles[rand(titles.length)]
+	title = choice.css('h2').text
+	link = choice['href']
+	return { :name => "NY Times", :title => title, :link => link }
+end
+
+def atlantic
+	data = scrape_data("https://www.theatlantic.com/health")
+	titles = data.css('li.article.blog-article > a')
+	choice = titles[rand(titles.length)]
+	title = choice.css('h2').text
+	link = choice['href']
+	return { :name => "The Atlantic", :title => title, :link => link }
+end
+
+def nautilus
+	data = scrape_data("http://nautil.us/term/f/Health")
+	titles = data.css('.article-title a')
+	choice = titles[rand(titles.length)]
+	title = choice.text
+	link = "http://nautil.us/" + choice['href']
+	return { :name => "Nautilus", :title => title, :link => link }
+end
+
+
 Strategies = [
 	method(:r_health),
-	method(:wikipedia_disorders),
-	method(:wikipedia_diseases),
+	method(:wikipedia),
 	method(:care_cards),
 	method(:ted_health),
+	method(:nytimes),
+	method(:atlantic),
+	method(:nautilus),
 ]
 
 =begin
