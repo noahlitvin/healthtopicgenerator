@@ -70,7 +70,7 @@ def atlantic
 	titles = data.css('li.article.blog-article > a')
 	choice = titles[rand(titles.length)]
 	title = choice.css('h2').text
-	link = "https://www.theatlantic.com/" + choice['href']
+	link = "https://www.theatlantic.com" + choice['href']
 	return { :name => "The Atlantic", :title => title, :link => link }
 end
 
@@ -79,7 +79,7 @@ def nautilus
 	titles = data.css('.article-title a')
 	choice = titles[rand(titles.length)]
 	title = choice.text
-	link = "http://nautil.us/" + choice['href']
+	link = "http://nautil.us" + choice['href']
 	return { :name => "Nautilus", :title => title, :link => link }
 end
 
