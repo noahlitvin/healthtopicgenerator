@@ -1,0 +1,25 @@
+App = {
+
+	init: function(){
+		$("a.button").click(function(e){
+			e.preventDefault();
+			App.generateSuggestion();
+		});
+		App.generateSuggestion();
+	},
+
+	generateSuggestion: function() {
+		$("h2").html('<em>loading...</em>');
+		$('a.more').attr("href", "#");
+		$("span.strategy-name").html('<em>loading...</em>');
+		$.getJSON( "/generate.json", function( strategy ) {
+			$("span.strategy-name").text(strategy.name);
+			$('a.more').attr("href", strategy.link);
+			$("h2").text(strategy.title);
+		});
+	}
+};
+
+$(document).ready(function(){
+	App.init();
+});
