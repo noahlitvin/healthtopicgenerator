@@ -70,7 +70,7 @@ def atlantic
 	titles = data.css('li.article.blog-article > a')
 	choice = titles[rand(titles.length)]
 	title = choice.css('h2').text
-	link = choice['href']
+	link = "https://www.theatlantic.com/" + choice['href']
 	return { :name => "The Atlantic", :title => title, :link => link }
 end
 
