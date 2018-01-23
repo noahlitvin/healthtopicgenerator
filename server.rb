@@ -83,6 +83,14 @@ def nautilus
 	return { :name => "Nautilus", :title => title, :link => link }
 end
 
+def aeon
+	data = scrape_data("https://aeon.co/health?page=1")
+	titles = data.search("entry")
+	choice = titles[rand(titles.length)]
+	title = choice.search('title')[0].children.text
+	link = choice.search('link')[0].attributes["href"].value
+	return { :name => "Aeon", :title => title, :link => link }
+end
 
 Strategies = [
 	method(:r_health),
@@ -92,6 +100,7 @@ Strategies = [
 	method(:nytimes),
 	method(:atlantic),
 	method(:nautilus),
+	method(:aeon),
 ]
 
 =begin
